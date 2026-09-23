@@ -84,6 +84,9 @@ class Home extends BaseController
         if ($this->request->getPost()) {
             $dataArray = $this->request->getPost();
 
+            // Add current date/time (matches how enquiries store it)
+            $dataArray['date'] = date('Y-m-d H:i:s');
+
             if ($this->CommonModel->InsertData('tbl_contacts', $dataArray) == true) {
                 // success
             }

@@ -18,12 +18,18 @@ class Properties extends BaseController
         if ($this->request->getPost()) {
             $dataArray = $this->request->getPost();
 
-            $photo = $this->request->getFile('photo_main');
+            // Handle all 4 property photo fields the same way
+            foreach (['photo_main', 'photo2', 'photo3', 'photo4'] as $field) {
+                $photo = $this->request->getFile($field);
 
-            if ($photo && $photo->isValid() && !$photo->hasMoved()) {
-                $newName = $photo->getRandomName();
-                $photo->move(ROOTPATH . 'uploads', $newName);
-                $dataArray['photo_main'] = $newName;
+                if ($photo && $photo->isValid() && !$photo->hasMoved()) {
+                    $newName = $photo->getRandomName();
+                    $photo->move(ROOTPATH . 'uploads', $newName);
+                    $dataArray[$field] = $newName;
+                } else {
+                    // No file selected for this slot; don't try to save an empty upload
+                    unset($dataArray[$field]);
+                }
             }
 
             if ($this->CommonModel->insertData('tbl_property', $dataArray)) {
@@ -45,18 +51,26 @@ class Properties extends BaseController
         if ($this->request->getPost()) {
             $dataArray = $this->request->getPost();
 
-            $photo = $this->request->getFile('photo_main');
-            $oldphoto = $this->request->getPost('oldphoto');
+            // Handle all 4 property photo fields the same way.
+            // Each has a matching hidden "oldphoto_<field>" so we can keep
+            // the existing image when no new file is uploaded for that slot.
+            foreach (['photo_main', 'photo2', 'photo3', 'photo4'] as $field) {
+                $photo = $this->request->getFile($field);
+                $oldphoto = $this->request->getPost('old' . $field);
 
-            if ($photo && $photo->isValid() && !$photo->hasMoved()) {
-                $newName = $photo->getRandomName();
-                $photo->move(ROOTPATH . 'uploads', $newName);
-            } else {
-                $newName = $oldphoto ?? 'default.jpg';
+                if ($photo && $photo->isValid() && !$photo->hasMoved()) {
+                    $newName = $photo->getRandomName();
+                    $photo->move(ROOTPATH . 'uploads', $newName);
+                } else {
+                    $newName = $oldphoto ?? null;
+                }
+
+                unset($dataArray['old' . $field]);
+
+                if ($newName !== null) {
+                    $dataArray[$field] = $newName;
+                }
             }
-
-            unset($dataArray['oldphoto']);
-            $dataArray['photo_main'] = $newName;
 
             if ($this->CommonModel->updateData('tbl_property', 'property_id', $property_id, $dataArray)) {
                 return redirect()->to('properties');

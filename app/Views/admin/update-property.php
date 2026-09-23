@@ -73,10 +73,36 @@
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <img src="<?=base_url('uploads/'.$property[0]->photo_main);?>" width="100px" alt="Main Photo">
-                  <input type="hidden" name="oldphoto" value="<?=$property[0]->photo_main;?>">
+                  <label>Main Photo</label><br>
+                  <?php if (!empty($property[0]->photo_main)): ?>
+                    <img src="<?=base_url('uploads/'.$property[0]->photo_main);?>" width="100px" alt="Main Photo"><br>
+                  <?php endif; ?>
+                  <input type="hidden" name="oldphoto_main" value="<?=$property[0]->photo_main;?>">
                   <input type="file" name="photo_main" class="form-control">
-                  <input type="hidden" name="oldphoto" value="<?=$property[0]->photo_main;?>">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Photo 2</label><br>
+                  <?php if (!empty($property[0]->photo2)): ?>
+                    <img src="<?=base_url('uploads/'.$property[0]->photo2);?>" width="100px" alt="Photo 2"><br>
+                  <?php endif; ?>
+                  <input type="hidden" name="oldphoto2" value="<?=$property[0]->photo2;?>">
+                  <input type="file" name="photo2" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Photo 3</label><br>
+                  <?php if (!empty($property[0]->photo3)): ?>
+                    <img src="<?=base_url('uploads/'.$property[0]->photo3);?>" width="100px" alt="Photo 3"><br>
+                  <?php endif; ?>
+                  <input type="hidden" name="oldphoto3" value="<?=$property[0]->photo3;?>">
+                  <input type="file" name="photo3" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Photo 4</label><br>
+                  <?php if (!empty($property[0]->photo4)): ?>
+                    <img src="<?=base_url('uploads/'.$property[0]->photo4);?>" width="100px" alt="Photo 4"><br>
+                  <?php endif; ?>
+                  <input type="hidden" name="oldphoto4" value="<?=$property[0]->photo4;?>">
+                  <input type="file" name="photo4" class="form-control">
                 </div>
               </div>
 

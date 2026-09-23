@@ -18,15 +18,21 @@
           <div class="col-md-3">
             <img src="<?= base_url('uploads/' . $property[0]->photo_main); ?>" width="100%" alt="">
           </div>
+          <?php if (!empty($property[0]->photo2)): ?>
           <div class="col-md-3">
-            <img src="<?= base_url('uploads/' . $property[0]->photo_main); ?>" width="100%" alt="">
+            <img src="<?= base_url('uploads/' . $property[0]->photo2); ?>" width="100%" alt="">
           </div>
+          <?php endif; ?>
+          <?php if (!empty($property[0]->photo3)): ?>
           <div class="col-md-3">
-            <img src="<?= base_url('uploads/' . $property[0]->photo_main); ?>" width="100%" alt="">
+            <img src="<?= base_url('uploads/' . $property[0]->photo3); ?>" width="100%" alt="">
           </div>
+          <?php endif; ?>
+          <?php if (!empty($property[0]->photo4)): ?>
           <div class="col-md-3">
-            <img src="<?= base_url('uploads/' . $property[0]->photo_main); ?>" width="100%" alt="" class="mb-5">
+            <img src="<?= base_url('uploads/' . $property[0]->photo4); ?>" width="100%" alt="" class="mb-5">
           </div>
+          <?php endif; ?>
 
           <div class="col-md-6">
             <ul class="list-group">
